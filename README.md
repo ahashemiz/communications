@@ -6,7 +6,7 @@ Team Members: Richard Aw, Lakshmi Manne, Shambhavi Gupta, Arman Hashemizadeh
 
 In this linear regression notebook, we use several python packages. Here is how you can install them from the command-line:
 
-`pip install pandas, matplotlib, seaborn, pandas, statsmodels`
+`pip install pandas, matplotlib, seaborn, statsmodels`
 
 ## Description
 
