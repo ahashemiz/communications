@@ -47,6 +47,26 @@ MLR is performed when there are multiple predictor variables (two or more X’s)
 An intuitive way to grasp the difference between SLR and MLR is to visualize both:
 
 ![Alt text](readme_imgs/SlrVsMlr.png?raw=true "SLR Vs MLR")
-SLR: fitting a line of best fit vs MLR: fitting a plane of best fit. Note that the 3D plot on the right depicts MLR in the case of two predictor variables; MLR also includes cases where there are even more predictor variables. (Image Source)
+SLR: fitting a line of best fit vs MLR: fitting a plane of best fit. Note that the 3D plot on the right depicts MLR in the case of two predictor variables; MLR also includes cases where there are even more predictor variables. (<a href="https://www.keboola.com/blog/linear-regression-machine-learning">Image Source</a>)
 
+## Why Care About Linear Regression?
 
+Linear regression enables us to carry out inference and prediction.
+
+Inference is about understanding the relationship between variables in the given data. Regressing a chosen response variable against one or more predictor variables would enable us to evaluate not only the significance of each of the predictor variables on the response variable (e.g., does “milk’s shelf life” have a significant influence on “price of milk”?), but also the relative importance of the predictor variables (e.g., which has a greater impact on “price of milk” — “milk’s shelf life” or “milk’s tastiness score”?).
+
+Prediction is about computing projected values for the response variable based on new input values of the predictor variables. Since linear regression gives us an equation that relates the response variable (e.g., “price of milk”) to the predictor variables (e.g., “milk’s shelf life”, “milk’s tastiness score”, etc.), we can ‘feed’ new values for “milk’s shelf life” and “milk’s tastiness score” to the equation and obtain a projected value for “price of milk”. In this way, linear regression enables us to predict the future given new data!
+
+Of course, it goes without saying that linear regression is practically useful. Inference and prediction are both critical to the commercial success of many companies, and increasingly so given that the world economy is becoming increasingly ‘data-driven’! (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+
+## SLR in Practice
+
+How do we obtain the numbers that specify the line of best fit? There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
+
+(OLSE should not be conflated with linear regression itself! The latter is a general process that may be initiated using a specific method, while the former is simply a specific method.) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+
+Having determined that there is a linear relationship between schooling and life expectancy, we used the python statsmodels package for fitting a linear regression model using ordinary least squares. Here is the summary of the linear regression model fitted. 
+
+![Alt text](readme_imgs/olsSummary.png?raw=true "statsmodels OLS Summary")
+
+The p value is 0.000, this shows that the schooling is a significant predictor of life expectancy. The coefficient indicates that for every one year increase in average no of school years, the life expectancy increases by 2.3387 years. 
