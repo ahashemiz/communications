@@ -31,3 +31,19 @@ This guide is meant to be accessible to those with just enough (bittersweet) mem
 
 (2) SLR in Practice — End-to-end tutorial on implementing SLR in Python.
 
+## SLR in a nutshell
+
+First...what is linear regression?
+
+Linear regression is the process of estimating the coefficients in the equation for the straight line (2D case) or plane (3D and higher dimensions) that best fits some given data. Thus, to perform linear regression is to (i) find the numbers that specify the line/plane of best fit and (ii) determine how confident we can be in those numbers. 
+
+(Remember from Physics labs that whenever we are estimating the value of something like height, we don’t just state our guess but provide error bounds for our guess as well? This is because there is no guarantee that our guess is the true value. It is exactly the same idea in linear regression!) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+There are two types of linear regression: simple linear regression (SLR) and multiple linear regression (MLR). 
+
+SLR is performed when we regress the response variable (Y) against only one predictor variable (X) — this is why it is dubbed “simple”. Example: regressing “price of milk” against “milk’s shelf life”.
+
+MLR is performed when there are multiple predictor variables (two or more X’s). Example: regressing “price of milk” against “milk’s shelf life”, “milk’s tastiness score”, and “milk’s nutrition score”.
+
+An intuitive way to grasp the difference between SLR and MLR is to visualize both:
+
+![Alt text](readme_imgs/SlrVsMlr.png?raw=true "SLR Vs MLR")
