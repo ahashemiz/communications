@@ -47,3 +47,6 @@ MLR is performed when there are multiple predictor variables (two or more X’s)
 An intuitive way to grasp the difference between SLR and MLR is to visualize both:
 
 ![Alt text](readme_imgs/SlrVsMlr.png?raw=true "SLR Vs MLR")
+SLR: fitting a line of best fit vs MLR: fitting a plane of best fit. Note that the 3D plot on the right depicts MLR in the case of two predictor variables; MLR also includes cases where there are even more predictor variables. (Image Source)
+
+
