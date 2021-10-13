@@ -67,6 +67,11 @@ How do we obtain the numbers that specify the line of best fit? There are variou
 
 Having determined that there is a linear relationship between schooling and life expectancy, we used the python statsmodels package for fitting a linear regression model using ordinary least squares. Here is the summary of the linear regression model fitted. 
 
+```python
+model = smf.ols('target~schooling_predictor', data=df_2015).fit()
+model.summary()
+```
+
 ![Alt text](readme_imgs/olsSummary.png?raw=true "statsmodels OLS Summary")
 
 The p value is 0.000, this shows that the schooling is a significant predictor of life expectancy. The coefficient indicates that for every one year increase in average no of school years, the life expectancy increases by 2.3387 years. 
