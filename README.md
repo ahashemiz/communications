@@ -97,7 +97,8 @@ The p value is 0.000, this shows that the schooling is a significant predictor o
 
 ## Model assumptions
 
-The mean of error terms must be 0. 
+1. The mean of error terms must be 0. 
+
 For a perfect model, we would expect all the error terms to be 0, that is there is no difference between the actual value and the fitted line value. However, this is rarely seen in practice. Alternatively, we can say that the expected value of the error terms must be 0, that is the mean of error terms must be 0. 
 
 How do we know if the assumption is met? 
@@ -116,4 +117,26 @@ ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ```
 
+![Alt text](readme_imgs/residuals.png?raw=true "Residual plot with matplotlib")
 
+We see that the residuals are scattered evenly around the bold red line – the calculated mean of all residuals. The mean is exactly at 0 which means that our assumption is met. 
+ 
+2. The variance of error terms must be constant. 
+ 
+The second model is assumption is the variance of error terms must be a fixed value. This assumption is particularly important because we perform numerous statistical tests to determine the significance/worth of the model. Most of these significance tests rely on the assumption of constant variance. If this is not met, we cannot call our test results/model reliable. 
+
+How do we know if the assumption is met? 
+The same residuals v/s fitted value plot is good enough to verify this assumption. About the mean at 0, we see that the spread of the data points is almost equal. There is no drastic change in the spread as we move along the x-axis. The spread is capped within a range –15 to 15. 
+
+3. The error terms must be independent and identically distributed (I.I.D)
+
+The error terms from the model are random in nature. At any point, we cannot predict the future error term value. We can say that they are stochastic in nature. All the error terms must have the same probability of turning up as an error from the model. That is, they must all have the same probability distribution. Also, the error terms must be independent, that is the occurrence of one must not affect the occurrence of another error.   
+How do we know if the assumption is met? 
+While there are numerous complex ways to test if the errors are dependent on each other or if they are equiprobable. We will use our residuals v/s fitted values plot to draw a conclusion. We can clearly observe that, the residuals are randomly scattered around the mean and there is no clear pattern the residuals follow. Therefore, our assumption, that error terms are I.I.D is met. 
+
+4. The error terms should be normally distributed. 
+
+A QQ plot compares a given dataset distribution to the distribution of a standard normal. It allows us to compare how close/deviated our distribution is compared to an ideally distribution.  A plot that is linear and set at a 45-degree angle tells us that our data distribution is normal. 
+Below, is the plot we obtained from the dataset, it is almost linear with slight deviations at the ends, which means that our error term distribution is close to a normal distribution, however, it could have heavy tails. 
+
+When performing linear regression, we are not determining the true coefficients (or intercept value). We are merely estimating them, and this is already assuming that our conception of the ground truth (i.e., the SLR model Y = B_0 + B_1*X + E) is correct. The true relationship between variables might not be perfectly linear — we never know!
