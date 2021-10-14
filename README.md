@@ -78,6 +78,8 @@ sns.heatmap(data=corr_matrix_2015, annot=True, cbar=False)
 
 ![Alt text](readme_imgs/corrMatrix.png?raw=true "seaborn heatmap of the correlation matrix")
 
+Schooling has a correlation of 0.82 with our target variable, life expectancy. For this SLR set-up, we opted to use schooling as our predictor variable.
+
 How do we obtain the numbers that specify the line of best fit? There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
 
 (OLSE should not be conflated with linear regression itself! The latter is a general process that may be initiated using a specific method, while the former is simply a specific method.) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
@@ -92,3 +94,26 @@ model.summary()
 ![Alt text](readme_imgs/olsSummary.png?raw=true "statsmodels OLS Summary")
 
 The p value is 0.000, this shows that the schooling is a significant predictor of life expectancy. The coefficient indicates that for every one year increase in average no of school years, the life expectancy increases by 2.3387 years. 
+
+## Model assumptions
+
+The mean of error terms must be 0. 
+For a perfect model, we would expect all the error terms to be 0, that is there is no difference between the actual value and the fitted line value. However, this is rarely seen in practice. Alternatively, we can say that the expected value of the error terms must be 0, that is the mean of error terms must be 0. 
+
+How do we know if the assumption is met? 
+Once we model the data, we can extract the residuals from the fitted model.
+
+```python
+residuals = model.resid
+predicted_values = model.predict()
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.scatter(predicted_values, residuals)
+ax.axhline(np.mean(residuals), color='red')
+ax.set_xlabel('Predicted values')
+ax.set_ylabel('Residuals')
+ax.set_title('Residuals v/s Predicted values')
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+```
+
+
