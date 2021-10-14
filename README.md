@@ -61,6 +61,23 @@ Of course, it goes without saying that linear regression is practically useful. 
 
 ## SLR in Practice
 
+Let’s start with a “real-world” data set - something with many potential predictor variables. For the sole purpose of seeing SLR in practice, we want to find two variables with values that are sufficiently correlated. To do so, we can plot a correlation matrix:
+
+```python
+df = pd.read_csv('Life Expectancy Data.csv')
+# Focusing on 2015
+df_2015 = df[df['Year'] == 2015].drop(columns='Year')
+df_2015_subset = df_2015[['Country', 'Status', 'Life expectancy ',
+                          'Adult Mortality', 'infant deaths', 'Hepatitis B',
+                          'Measles ', ' BMI ', 'Diphtheria ',
+                          ' HIV/AIDS', 'GDP', 'Schooling']]
+corr_matrix_2015 = df_2015_subset.corr()
+plt.figure(figsize=(12, 5))
+sns.heatmap(data=corr_matrix_2015, annot=True, cbar=False)
+```
+
+
+
 How do we obtain the numbers that specify the line of best fit? There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
 
 (OLSE should not be conflated with linear regression itself! The latter is a general process that may be initiated using a specific method, while the former is simply a specific method.) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
