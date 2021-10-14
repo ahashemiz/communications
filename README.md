@@ -76,7 +76,7 @@ plt.figure(figsize=(12, 5))
 sns.heatmap(data=corr_matrix_2015, annot=True, cbar=False)
 ```
 
-
+![Alt text](readme_imgs/corrMatrix.png?raw=true "seaborn heatmap of the correlation matrix")
 
 How do we obtain the numbers that specify the line of best fit? There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
 
