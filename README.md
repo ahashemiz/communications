@@ -1,67 +1,72 @@
-# Communications
+# (Simple) Linear Regression: A Practical Guide
 
-Team Members: Richard Aw, Lakshmi Manne, Shambhavi Gupta, Arman Hashemizadeh
+Authors: Richard Aw, Lakshmi Manne, Shambhavi Gupta, Arman Hashemizadeh
 
-## Getting Started
+> In fulfillment of the requirements for the Final Project of [Communications for Analytics (MSDS 610)](https://catalog.usfca.edu/preview_course_nopop.php?catoid=35&coid=533754). MSDS 610 is a core class under the MS in Data Science program at the University of San Francisco. 
 
-In this linear regression notebook, we use several python packages. Here is how you can install them from the command-line:
 
-`pip install pandas, matplotlib, seaborn, statsmodels`
-
-## Description
-
-This jupyter notebook contains a simple example of how to perform and analyze the results from a simple linear regression model using the statsmodel python package.
-The dataset is the WHO Life Expectancy Dataset, which can be found on Kaggle: <a href="https://www.kaggle.com/kumarajarshi/life-expectancy-who?select=Life+Expectancy+Data.csv">WHO Life Expectancy Dataset</a>
-
-We regress a country's average life expectancy on its citizens' average number of years spent in school. Surprisingly, we found a high level of correlation
-between these two variables in this dataset. 
-
-This notebook also includes analysis of the assumptions of the linear model as well as to what degree the data 
-follows these assumptions.
 
 ## About This Guide
 
-This guide is one of the deliverables of a group project for Communications for Analytics class (MSDS 610). MSDS 610 is a core class in the Master of Science in Data Science program at the University of San Francisco.
+The goal of this guide is to provide a concise and “hands-on” introduction to linear regression, with an emphasis on **simple linear regression (SLR)**. It is meant to be accessible to those with *just enough* (bittersweet) memories of introductory probability, statistics, linear algebra, and Python programming. To this end, we have structured the guide as follows: 
 
-The goal of this guide is to provide a concise and “hands-on” introduction to linear regression, with an emphasis on simple linear regression (SLR). This is to keep things as simple as possible whilst still conveying the essence of linear regression. 
+1. **Linear Regression in a Nutshell** — “No-frills” overview of the essentials and motivation for linear regression.
 
-This guide is meant to be accessible to those with just enough (bittersweet) memories of introductory probability, statistics, linear algebra, and Python programming. To this end, we have structured the guide as follows: 
+2. **Linear Regression in Practice** — Gentle tutorial on implementing SLR in Python, using [the WHO Life Expectancy Dataset](https://www.kaggle.com/kumarajarshi/life-expectancy-who?select=Life+Expectancy+Data.csv). 
 
-(1) SLR in a Nutshell — “No-frills” overview of the essentials and motivation for SLR.
 
-(2) SLR in Practice — End-to-end tutorial on implementing SLR in Python.
 
-## SLR in a nutshell
+## Linear Regression in a Nutshell
 
-First...what is linear regression?
+### What *is* linear regression?
 
-Linear regression is the process of estimating the coefficients in the equation for the straight line (2D case) or plane (3D and higher dimensions) that best fits some given data. Thus, to perform linear regression is to (i) find the numbers that specify the line/plane of best fit and (ii) determine how confident we can be in those numbers. 
+Linear regression is the process of *estimating* the coefficients in the equation for the straight line or plane that best fits some given data. Thus, to perform linear regression is to (i) find the numbers that specify the line/plane of best fit and (ii) determine how confident we can be in those numbers. 
 
-(Remember from Physics labs that whenever we are estimating the value of something like height, we don’t just state our guess but provide error bounds for our guess as well? This is because there is no guarantee that our guess is the true value. It is exactly the same idea in linear regression!) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+> Remember from Physics 101 that whenever we are estimating the value of something like height, we don’t just state our guess but provide error bounds for it as well? This is because there is no guarantee that our guess *is* the true value. Linear regression is based on the same logic!
+
 There are two types of linear regression: simple linear regression (SLR) and multiple linear regression (MLR). 
 
-SLR is performed when we regress the response variable (Y) against only one predictor variable (X) — this is why it is dubbed “simple”. Example: regressing “price of milk” against “milk’s shelf life”.
+* **SLR** is performed when we regress the response variable (*Y*) against only *one* predictor variable (*X*) — this is why it is dubbed “simple”. Example: regressing “price of milk” against “milk’s shelf life”.
 
-MLR is performed when there are multiple predictor variables (two or more X’s). Example: regressing “price of milk” against “milk’s shelf life”, “milk’s tastiness score”, and “milk’s nutrition score”.
+* **MLR** is performed when there are *multiple* predictor variables (two or more *X*’s). Example: regressing “price of milk” against “milk’s shelf life”, “milk’s tastiness score”, and “milk’s nutrition score”.
 
-An intuitive way to grasp the difference between SLR and MLR is to visualize both:
+An intuitive way to grasp the difference between SLR and MLR is to visualize them both, side by side:
 
-![Alt text](readme_imgs/SlrVsMlr.png?raw=true "SLR Vs MLR")
-SLR: fitting a line of best fit vs MLR: fitting a plane of best fit. Note that the 3D plot on the right depicts MLR in the case of two predictor variables; MLR also includes cases where there are even more predictor variables. (<a href="https://www.keboola.com/blog/linear-regression-machine-learning">Image Source</a>)
+![SLR vs MLR](readme_imgs/SlrVsMlr.png?raw=true "SLR Vs MLR")
+*Note that the 3D plot on the right depicts MLR in the case of two predictor variables; MLR also includes cases where there are even more predictor variables (X's)!* (<a href="https://www.keboola.com/blog/linear-regression-machine-learning">Image Source</a>)
 
-## Why Care About Linear Regression?
+In this way, we can see that SLR is about fitting the best *line* through a plot of 2D data, while MLR is about fitting the best *plane* through a plot of 3D or higher-dimensional data. (More about what 'best' means, exactly, in the tutorial section.)
+
+
+
+### Why *care* about linear regression?
 
 Linear regression enables us to carry out inference and prediction.
 
-Inference is about understanding the relationship between variables in the given data. Regressing a chosen response variable against one or more predictor variables would enable us to evaluate not only the significance of each of the predictor variables on the response variable (e.g., does “milk’s shelf life” have a significant influence on “price of milk”?), but also the relative importance of the predictor variables (e.g., which has a greater impact on “price of milk” — “milk’s shelf life” or “milk’s tastiness score”?).
+> This makes linear regression **practically useful**: Inference and prediction are both critical to the commercial success of many companies, and increasingly so given that [the world economy is becoming more ‘data-driven’](https://www2.deloitte.com/mt/en/pages/technology/articles/mt-what-is-digital-economy.html). If you want to [stay relevant](https://hbr.org/2020/02/boost-your-teams-data-literacy), or just [earn a *healthy* salary](https://datasciencedegree.wisconsin.edu/data-science/data-scientist-salary/), you *should* care about linear regression!
 
-Prediction is about computing projected values for the response variable based on new input values of the predictor variables. Since linear regression gives us an equation that relates the response variable (e.g., “price of milk”) to the predictor variables (e.g., “milk’s shelf life”, “milk’s tastiness score”, etc.), we can ‘feed’ new values for “milk’s shelf life” and “milk’s tastiness score” to the equation and obtain a projected value for “price of milk”. In this way, linear regression enables us to predict the future given new data!
+**Inference** is about understanding the relationship between variables in the given data. Regressing a chosen response variable against one or more predictor variables would enable us to evaluate not only the significance of *each* of the predictor variables on the response variable (e.g., does “milk’s shelf life” have a significant influence on “price of milk”?), but also the *relative* importance of the predictor variables (e.g., which has a greater impact on “price of milk” — “milk’s shelf life” or “milk’s tastiness score”?).
 
-Of course, it goes without saying that linear regression is practically useful. Inference and prediction are both critical to the commercial success of many companies, and increasingly so given that the world economy is becoming increasingly ‘data-driven’! (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+**Prediction** is about computing *projected* values for the response variable based on new input values of the predictor variables. Since linear regression gives us an equation that relates the response variable (e.g., “price of milk”) to the predictor variables (e.g., “milk’s shelf life”, “milk’s tastiness score”, etc.), we can ‘feed’ new values for “milk’s shelf life” and “milk’s tastiness score” to the equation and obtain a projected value for “price of milk”. In this way, linear regression enables us to *predict* the future given new data!
 
-## SLR in Practice
 
-Let’s start with a “real-world” data set - something with many potential predictor variables. For the sole purpose of seeing SLR in practice, we want to find two variables with values that are sufficiently correlated. To do so, we can plot a correlation matrix:
+
+## Linear Regression in Practice
+
+### Getting started
+
+- We will need to install some Python packages. You can do so by running the following line of code in the command-line:
+
+  `pip install pandas, matplotlib, seaborn, statsmodels`
+
+-  We will be using the WHO Life Expectancy Dataset, which can be downloaded [here on Kaggle](https://www.kaggle.com/kumarajarshi/life-expectancy-who?select=Life+Expectancy+Data.csv). 
+
+  - If you're planning to run the same block of code below in a Jupyter/CoLab notebook, be sure to *save the dataset in the same folder as your notebook*. Otherwise, you will have to modify the file path in `df = pd.read_csv('Life Expectancy Data.csv')`.
+
+
+### Extracting two variables from the dataset for SLR
+
+The dataset contains many features, so we have lots of options for choosing which features to include as the response variable and predictor variable in our SLR model. For pedagogical reasons, we want to find two variables that are sufficiently correlated. To do so, we can plot a correlation matrix:
 
 ```python
 df = pd.read_csv('Life Expectancy Data.csv')
@@ -78,11 +83,38 @@ sns.heatmap(data=corr_matrix_2015, annot=True, cbar=False)
 
 ![Alt text](readme_imgs/corrMatrix.png?raw=true "seaborn heatmap of the correlation matrix")
 
-Schooling has a correlation of 0.82 with our target variable, life expectancy. For this SLR set-up, we opted to use schooling as our predictor variable.
+It appears that `Schooling` has a pretty strong correlation of 0.82 with `Life expectancy`. As such, let us use `Life expectancy` and `Schooling` as our response variable and predictor variable, respectively.
 
-How do we obtain the numbers that specify the line of best fit? There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
 
-(OLSE should not be conflated with linear regression itself! The latter is a general process that may be initiated using a specific method, while the former is simply a specific method.) (Could put in a textbox with a light color hue; something like ‘FYI’ boxes in textbooks.)
+### Creating a scatter plot of the two variables
+
+We can easily visualize the relationship between `Schooling` and `Life expectancy` by producing a scatter plot as follows:
+
+```python
+schooling_predictor = df_2015['Schooling']
+target = df_2015['Life expectancy ']
+fig, ax = plt.subplots(figsize=(12,8))
+ax.scatter(schooling_predictor, target)
+ax.set_xlabel("Schooling (Avg. number of years)", fontsize='x-large')
+ax.set_ylabel("Life Expectancy (years)", fontsize='x-large')
+ax.set_title("WHO Country Life Expectancy Dataset, 2015", fontsize='x-large', y=1.05);
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+```
+
+![Scatter Plot](readme_imgs/scatter_plot.png?raw=true "Scatter Plot")
+
+
+### Finding the line of best fit 
+
+From the scatter plot, it seems that we could definitely fit a straight line through those points. How, then, can we obtain the numbers that specify the direction and position of this line?
+
+There are various methods to do so. Ordinary least squares estimation (OLSE) — wherein “best” means minimizing the sum of squared errors — is probably the most well-known method. Maximum likelihood estimation (MLE) — wherein “best” means maximizing the probability that each of the random error terms in our linear model is normally distributed — is another method. (Coincidentally, MLE and OLSE lead to the same results in SLR!) 
+
+> OLSE should not be conflated with linear regression itself! The latter is a general process that may be initiated using a specific method, while the former is simply a specific method.
+
+
+### Assessing the validity of the line of best fit
 
 Having determined that there is a linear relationship between schooling and life expectancy, we used the python statsmodels package for fitting a linear regression model using ordinary least squares. Here is the summary of the linear regression model fitted. 
 
@@ -91,11 +123,12 @@ model = smf.ols('target~schooling_predictor', data=df_2015).fit()
 model.summary()
 ```
 
-![Alt text](readme_imgs/olsSummary.png?raw=true "statsmodels OLS Summary")
+![OLS Summary](readme_imgs/olsSummary.png?raw=true "statsmodels OLS Summary")
 
-The p value is 0.000, this shows that the schooling is a significant predictor of life expectancy. The coefficient indicates that for every one year increase in average no of school years, the life expectancy increases by 2.3387 years. 
+The p value is 0.000, this shows that the schooling is a significant predictor of life expectancy. The coefficient indicates that for every one year increase in average no of school years, the life expectancy increases by 2.3387 years.
 
-## Model assumptions
+
+### Assessing the assumptions of the SLR model
 
 1. The mean of error terms must be 0. 
 
@@ -107,7 +140,7 @@ Once we model the data, we can extract the residuals from the fitted model.
 ```python
 residuals = model.resid
 predicted_values = model.predict()
-fig, ax = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 ax.scatter(predicted_values, residuals)
 ax.axhline(np.mean(residuals), color='red')
 ax.set_xlabel('Predicted values')
@@ -117,7 +150,7 @@ ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ```
 
-![Alt text](readme_imgs/residuals.png?raw=true "Residual plot with matplotlib")
+![Residual Plot](readme_imgs/residuals.png?raw=true "Residual plot with matplotlib")
 
 We see that the residuals are scattered evenly around the bold red line – the calculated mean of all residuals. The mean is exactly at 0 which means that our assumption is met. 
  
